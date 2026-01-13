@@ -1,0 +1,34 @@
+# Source files
+nodes/
+credentials/
+*.ts
+!*.d.ts
+
+# Config files
+.eslintrc.js
+.prettierrc
+tsconfig.json
+gulpfile.js
+jest.config.js
+
+# Tests
+test/
+coverage/
+*.test.ts
+*.spec.ts
+
+# Development
+.git/
+.github/
+.idea/
+.vscode/
+
+# Build artifacts
+*.log
+*.tmp
+
+# Documentation source
+docs/
+
+# Scripts
+scripts/
