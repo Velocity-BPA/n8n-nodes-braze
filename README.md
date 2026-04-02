@@ -8,375 +8,235 @@
 >
 > For licensing information, visit https://velobpa.com/licensing or contact licensing@velobpa.com.
 
-A comprehensive n8n community node for Braze, the leading customer engagement platform for personalized messaging across channels. This node enables workflow automation for user management, campaign orchestration, messaging, segmentation, content blocks, and analytics.
+This n8n community node provides comprehensive integration with Braze's customer engagement platform. With 7 resources and extensive operations, it enables automated customer lifecycle management, campaign orchestration, and personalized messaging workflows directly from your n8n automation platform.
 
-![n8n](https://img.shields.io/badge/n8n-community--node-blue)
-![Version](https://img.shields.io/badge/version-1.0.0-green)
+![n8n Community Node](https://img.shields.io/badge/n8n-Community%20Node-blue)
 ![License](https://img.shields.io/badge/license-BSL--1.1-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
+![Braze API](https://img.shields.io/badge/Braze-API%20v3-orange)
+![Customer Engagement](https://img.shields.io/badge/Customer-Engagement-green)
+![Marketing Automation](https://img.shields.io/badge/Marketing-Automation-purple)
 
 ## Features
 
-- **11 Resource Categories** with 60+ operations
-- **User Management**: Track attributes, events, purchases; manage aliases and identities
-- **Campaign Orchestration**: Trigger, schedule, and analyze API-triggered campaigns
-- **Canvas Management**: Control multi-step customer journeys
-- **Multi-Channel Messaging**: Send push, email, SMS, webhooks, and content cards
-- **Segmentation**: Create, manage, and export user segments
-- **Content Blocks & Templates**: Manage reusable content components
-- **Subscription Management**: Handle email and SMS subscription groups
-- **Catalogs**: Manage product catalogs for personalization
-- **Preference Centers**: Create and manage user preference pages
-- **Custom Events**: Track and analyze custom event data
-- **Multi-Cluster Support**: Works with all US and EU Braze clusters
+- **User Management** - Create, update, delete, and track user profiles with custom attributes and events
+- **Campaign Orchestration** - Launch, pause, and monitor email, push, and in-app messaging campaigns
+- **Canvas Automation** - Manage multi-step customer journey workflows and trigger sequences
+- **Audience Segmentation** - Create and manage dynamic user segments based on behavior and attributes
+- **Message Personalization** - Send targeted messages across email, SMS, push, and in-app channels
+- **Event Tracking** - Record custom events, purchases, and user interactions for behavioral targeting
+- **Template Management** - Create and manage reusable email and message templates
+- **Real-time Analytics** - Access campaign performance metrics and user engagement data
 
 ## Installation
 
 ### Community Nodes (Recommended)
 
-1. Open your n8n instance
+1. Open n8n
 2. Go to **Settings** → **Community Nodes**
-3. Click **Install**
+3. Click **Install a community node**
 4. Enter `n8n-nodes-braze`
 5. Click **Install**
 
 ### Manual Installation
 
 ```bash
+cd ~/.n8n
 npm install n8n-nodes-braze
 ```
 
 ### Development Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/Velocity-BPA/n8n-nodes-braze.git
 cd n8n-nodes-braze
-
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
-
-# Link to n8n
 mkdir -p ~/.n8n/custom
 ln -s $(pwd) ~/.n8n/custom/n8n-nodes-braze
-
-# Restart n8n
+n8n start
 ```
 
 ## Credentials Setup
 
-| Field | Description |
-|-------|-------------|
-| **API Key** | REST API Key from Braze dashboard (Settings > API Keys) |
-| **Cluster** | Your Braze cluster (US-01 through US-0B, EU-01 through EU-03) |
-| **Custom Endpoint** | Optional: Custom REST endpoint URL for dedicated infrastructure |
-
-### Finding Your Cluster
-
-1. Log into your Braze dashboard
-2. Check the URL (e.g., `dashboard-01.braze.com` indicates US-01)
-3. Or go to **Settings** → **APIs** → **SDK Endpoint**
+| Field | Description | Required |
+|-------|-------------|----------|
+| API Key | Your Braze REST API key with appropriate permissions | Yes |
+| Instance URL | Your Braze instance URL (e.g., rest.iad-01.braze.com) | Yes |
+| App ID | Your app identifier for app-specific operations | No |
 
 ## Resources & Operations
 
-### User
+### 1. User
 
 | Operation | Description |
 |-----------|-------------|
-| Track | Track user attributes, events, and purchases |
-| Identify | Alias user profiles |
-| Delete | Delete users by external ID or alias |
-| Get | Export user profile by identifier |
-| Get by Segment | Export users from segment |
-| Merge | Merge duplicate user profiles |
-| New Alias | Create new user alias |
-| Rename External ID | Rename user external ID |
-| Remove External ID | Remove external ID from profile |
-| Get Subscription Status | Get email/SMS subscription status |
-| Set Subscription Status | Update subscription status |
+| Create | Create a new user profile with attributes and events |
+| Update | Update existing user attributes and custom properties |
+| Get | Retrieve user profile information and engagement history |
+| Delete | Remove user profile from your Braze workspace |
+| Track Event | Record custom events for behavioral targeting |
+| Track Purchase | Log purchase events with product details and revenue |
+| Export | Export user data for analysis and compliance |
 
-### Campaign
+### 2. Campaign
 
 | Operation | Description |
 |-----------|-------------|
-| Get Many | List campaigns |
-| Get | Get campaign details |
-| Get Analytics | Get campaign analytics |
-| Trigger | Trigger API-triggered campaign |
-| Schedule | Schedule campaign delivery |
-| Update Schedule | Update scheduled campaign |
-| Delete Schedule | Delete scheduled campaign |
-| Get Send Info | Get send analytics |
+| Create | Create new email, push, or in-app messaging campaigns |
+| Launch | Start campaign delivery to target audiences |
+| Pause | Temporarily halt active campaign delivery |
+| Resume | Restart paused campaign delivery |
+| Get Details | Retrieve campaign configuration and performance metrics |
+| List | Get all campaigns with filtering and pagination |
+| Update | Modify campaign settings and targeting criteria |
+| Delete | Remove campaign from workspace |
 
-### Canvas
-
-| Operation | Description |
-|-----------|-------------|
-| Get Many | List canvases |
-| Get | Get canvas details |
-| Get Analytics | Get canvas analytics |
-| Get Summary | Get canvas summary metrics |
-| Trigger | Trigger API-triggered canvas |
-| Schedule | Schedule canvas entry |
-| Update Schedule | Update canvas schedule |
-| Delete Schedule | Delete canvas schedule |
-| Get Entry Steps | Get canvas entry steps |
-
-### Message
+### 3. Canvas
 
 | Operation | Description |
 |-----------|-------------|
-| Send | Send immediate message |
-| Schedule | Schedule message |
-| Update Schedule | Update scheduled message |
-| Delete Schedule | Delete scheduled message |
-| Get Live Activity | Get Live Activity status (iOS) |
-| Update Live Activity | Update Live Activity |
-| Send Transactional | Send transactional email |
+| Create | Build multi-step customer journey workflows |
+| Launch | Activate canvas for user entry and progression |
+| Pause | Stop canvas entry while preserving in-progress journeys |
+| Resume | Restart canvas entry for new users |
+| Get Details | Retrieve canvas configuration and performance data |
+| List | Get all canvases with filtering options |
+| Update | Modify canvas steps and entry criteria |
+| Delete | Remove canvas from workspace |
 
-### Segment
-
-| Operation | Description |
-|-----------|-------------|
-| Get Many | List segments |
-| Get | Get segment details |
-| Get Analytics | Get segment analytics |
-| Get Size | Get segment size |
-| Export Users | Export segment users |
-| Create | Create segment via API |
-
-### Content Block
+### 4. Segment
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create content block |
-| Get | Get content block details |
-| Get Many | List content blocks |
-| Update | Update content block |
-| Get Info | Get content block metadata |
+| Create | Build user segments based on attributes and behaviors |
+| Update | Modify segment criteria and filters |
+| Get Details | Retrieve segment definition and user count |
+| List | Get all segments with metadata |
+| Export Users | Export segment member list for analysis |
+| Delete | Remove segment from workspace |
 
-### Template
-
-| Operation | Description |
-|-----------|-------------|
-| Create Email | Create email template |
-| Get Email | Get email template |
-| Get Many Email | List email templates |
-| Update Email | Update email template |
-| Delete Email | Delete email template |
-| Get Email Info | Get email template metadata |
-| Create Link | Create link template |
-| Get Link | Get link template |
-| Get Many Link | List link templates |
-| Update Link | Update link template |
-
-### Subscription Group
+### 5. Message
 
 | Operation | Description |
 |-----------|-------------|
-| Get Many | List subscription groups |
-| Get | Get subscription group status |
-| Get Users | Get users in subscription group |
-| Update Status | Update user subscription status |
-| Get Global | Get user global subscription state |
+| Send | Deliver immediate messages to users or segments |
+| Schedule | Schedule future message delivery |
+| Get Status | Check delivery status and engagement metrics |
+| Cancel | Cancel scheduled messages before delivery |
+| Send Transactional | Send triggered transactional emails |
+| Send Push | Deliver push notifications to mobile devices |
+| Send SMS | Send SMS messages to user phone numbers |
 
-### Catalog
-
-| Operation | Description |
-|-----------|-------------|
-| Create | Create catalog |
-| Get | Get catalog details |
-| Get Many | List catalogs |
-| Delete | Delete catalog |
-| Create Items | Create catalog items |
-| Get Item | Get catalog item |
-| Get Items | List catalog items |
-| Update Items | Update catalog items |
-| Delete Items | Delete catalog items |
-| Replace Items | Replace catalog items |
-
-### Preference Center
+### 6. Event
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create preference center |
-| Get | Get preference center details |
-| Get Many | List preference centers |
-| Update | Update preference center |
-| Get URL | Generate preference center URL |
+| Track Custom | Record custom events for user behavior tracking |
+| Track Purchase | Log purchase events with product and revenue data |
+| Get Analytics | Retrieve event analytics and funnel data |
+| List Events | Get all custom events with usage statistics |
+| Update Properties | Modify event property definitions |
+| Delete | Remove custom event definitions |
 
-### Custom Event
+### 7. Template
 
 | Operation | Description |
 |-----------|-------------|
-| Get Many | List custom event names |
-| Get Analytics | Get event analytics |
-| Get Hourly Data | Get hourly event counts |
-| Get Property Info | Get event property info |
-
-## Trigger Node
-
-The **Braze Trigger** node receives webhooks from Braze campaigns and Currents.
-
-### Supported Events
-
-- `campaign.sent` - Campaign message sent
-- `campaign.converted` - Campaign conversion event
-- `canvas.entered` - User entered canvas
-- `canvas.exited` - User exited canvas
-- `user.identified` - New user identified
-- `subscription.changed` - Subscription status change
-- `email.sent` / `email.opened` / `email.clicked` / `email.bounced`
-- `push.sent` / `push.opened`
-- `sms.sent` / `sms.delivered`
-
-### Configuration
-
-1. In Braze, create a Campaign with Webhook channel
-2. Set the webhook URL to your n8n endpoint
-3. Optionally add a verification token header
+| Create | Design email and message templates |
+| Update | Modify template content and styling |
+| Get | Retrieve template HTML and configuration |
+| List | Get all templates with metadata |
+| Preview | Generate template preview with sample data |
+| Duplicate | Create copies of existing templates |
+| Delete | Remove templates from workspace |
 
 ## Usage Examples
 
-### Track User Event
+```javascript
+// Create a new user with custom attributes
+{
+  "external_id": "user_12345",
+  "email": "john.doe@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "custom_attributes": {
+    "subscription_tier": "premium",
+    "last_login": "2024-01-15T10:30:00Z",
+    "total_purchases": 15
+  }
+}
+```
 
 ```javascript
-// Track a purchase event for a user
+// Launch a promotional email campaign
 {
-  "resource": "user",
-  "operation": "track",
-  "trackType": "purchases",
-  "identifierType": "externalId",
-  "identifierValue": "user_123",
-  "purchasesUi": {
-    "purchaseValues": [
-      {
-        "productId": "SKU-001",
-        "currency": "USD",
-        "price": 29.99,
-        "quantity": 1
+  "campaign_id": "abc123-def456-ghi789",
+  "send_id": "promo_spring_2024",
+  "recipients": {
+    "segment_id": "premium_users_segment"
+  },
+  "schedule": {
+    "time": "2024-03-15T09:00:00Z",
+    "in_local_time": true
+  }
+}
+```
+
+```javascript
+// Track a purchase event with product details
+{
+  "external_id": "user_12345",
+  "purchases": [{
+    "product_id": "widget_pro_v2",
+    "currency": "USD",
+    "price": 49.99,
+    "quantity": 2,
+    "time": "2024-01-15T14:22:00Z",
+    "properties": {
+      "category": "widgets",
+      "discount_applied": true
+    }
+  }]
+}
+```
+
+```javascript
+// Send immediate push notification
+{
+  "external_user_ids": ["user_12345", "user_67890"],
+  "messages": {
+    "apple_push": {
+      "alert": "Your order has shipped! Track it now.",
+      "badge": 1,
+      "sound": "default",
+      "custom": {
+        "tracking_id": "TRK123456789"
       }
-    ]
+    }
   }
 }
 ```
-
-### Trigger Campaign
-
-```javascript
-// Trigger an API campaign with dynamic content
-{
-  "resource": "campaign",
-  "operation": "trigger",
-  "campaignId": "campaign_abc123",
-  "recipients": "user_123,user_456",
-  "triggerProperties": "{\"offer_code\": \"SAVE20\"}"
-}
-```
-
-### Send Push Notification
-
-```javascript
-// Send push notification to users
-{
-  "resource": "message",
-  "operation": "send",
-  "messageType": "push",
-  "externalUserIds": "user_123",
-  "pushOptions": {
-    "platform": "both",
-    "alert": "Your order has shipped!",
-    "title": "Order Update"
-  }
-}
-```
-
-## Braze Concepts
-
-### User Identifiers
-
-Braze supports multiple user identifier types:
-
-- **External ID**: Your system's user ID (recommended primary identifier)
-- **Braze ID**: Braze-generated internal user ID
-- **User Alias**: Secondary identifier with name and label
-
-### API-Triggered Campaigns vs Canvas
-
-- **Campaigns**: Single-send messages with A/B testing
-- **Canvas**: Multi-step customer journeys with branching logic
-
-### Subscription States
-
-- **opted_in**: User has explicitly opted in
-- **subscribed**: User is subscribed (default state)
-- **unsubscribed**: User has opted out
-
-## Braze Clusters
-
-| Cluster | REST API Endpoint |
-|---------|-------------------|
-| US-01 | rest.iad-01.braze.com |
-| US-02 | rest.iad-02.braze.com |
-| US-03 | rest.iad-03.braze.com |
-| US-04 | rest.iad-04.braze.com |
-| US-05 | rest.iad-05.braze.com |
-| US-06 | rest.iad-06.braze.com |
-| US-07 | rest.iad-07.braze.com |
-| US-08 | rest.iad-08.braze.com |
-| US-0A | rest.iad-0a.braze.com |
-| US-0B | rest.iad-0b.braze.com |
-| EU-01 | rest.fra-01.braze.eu |
-| EU-02 | rest.fra-02.braze.eu |
-| EU-03 | rest.fra-03.braze.eu |
-
-## Rate Limits
-
-- Default: 250,000 requests/hour (varies by contract)
-- `/users/track`: 50,000 requests/minute
-- `/messages/send`: 250 requests/minute
-- Batch limits: 75 users per track request, 50 per delete
 
 ## Error Handling
 
-The node handles common Braze API errors:
-
-- **400**: Invalid parameters - check your input data
-- **401**: Invalid API key - verify credentials
-- **403**: Insufficient permissions - check API key permissions
-- **404**: Resource not found - verify IDs
-- **429**: Rate limited - reduce request frequency
-- **500/503**: Server issues - retry with backoff
-
-## Security Best Practices
-
-1. **API Key Security**: Use workspace-scoped API keys with minimum required permissions
-2. **Webhook Verification**: Always use verification tokens for trigger webhooks
-3. **Data Minimization**: Only export fields you need
-4. **PII Handling**: Be mindful of personal data in attributes and events
+| Error | Description | Solution |
+|-------|-------------|----------|
+| Invalid API Key | Authentication failed with provided credentials | Verify API key is correct and has required permissions |
+| Rate Limit Exceeded | Too many requests sent in time window | Implement exponential backoff and respect rate limits |
+| User Not Found | Specified user ID does not exist in workspace | Check external_id format or create user first |
+| Campaign Already Launched | Cannot modify campaign that is already active | Pause campaign before making modifications |
+| Invalid Segment Query | Segment filter criteria contains syntax errors | Review segment logic and field names |
+| Template Validation Failed | Template HTML or content has formatting issues | Check template syntax and required fields |
 
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Build
 npm run build
-
-# Run tests
 npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Lint
 npm run lint
-
-# Format code
-npm run format
+npm run dev
 ```
 
 ## Author
@@ -393,30 +253,24 @@ This n8n community node is licensed under the **Business Source License 1.1**.
 Permitted for personal, educational, research, and internal business use.
 
 ### Commercial Use
-Use of this node within any SaaS, PaaS, hosted platform, managed service,
-or paid automation offering requires a commercial license.
+Use of this node within any SaaS, PaaS, hosted platform, managed service, or paid automation offering requires a commercial license.
 
-For licensing inquiries:
-**licensing@velobpa.com**
+For licensing inquiries: **licensing@velobpa.com**
 
 See [LICENSE](LICENSE), [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md), and [LICENSING_FAQ.md](LICENSING_FAQ.md) for details.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Contributions are welcome! Please ensure:
+
+1. Code follows existing style conventions
+2. All tests pass (`npm test`)
+3. Linting passes (`npm run lint`)
+4. Documentation is updated for new features
+5. Commit messages are descriptive
 
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-braze/issues)
-- **Documentation**: [Braze API Docs](https://www.braze.com/docs/api/basics/)
-- **n8n Community**: [n8n Community Forum](https://community.n8n.io/)
-
-## Acknowledgments
-
-- [Braze](https://www.braze.com/) for their comprehensive API
-- [n8n](https://n8n.io/) for the workflow automation platform
-- The n8n community for inspiration and support
+- **Braze Documentation**: [Braze REST API Guide](https://www.braze.com/docs/api/basics/)
+- **Braze Community**: [Braze Developer Community](https://community.braze.com/)
