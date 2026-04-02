@@ -70,6 +70,7 @@ export class Braze implements INodeType {
 					{ name: 'Catalog', value: 'catalog' },
 					{ name: 'Content Block', value: 'contentBlock' },
 					{ name: 'Custom Event', value: 'customEvent' },
+					{ name: 'Event', value: 'event' },
 					{ name: 'Message', value: 'message' },
 					{ name: 'Preference Center', value: 'preferenceCenter' },
 					{ name: 'Segment', value: 'segment' },
@@ -172,6 +173,20 @@ export class Braze implements INodeType {
 					{ name: 'Get Analytics', value: 'getAnalytics', description: 'Get segment analytics', action: 'Get segment analytics' },
 					{ name: 'Get Many', value: 'getMany', description: 'List segments', action: 'List segments' },
 					{ name: 'Get Size', value: 'getSize', description: 'Get segment size', action: 'Get segment size' },
+				],
+				default: 'getMany',
+			},
+			// Event Operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['event'] } },
+				options: [
+					{ name: 'Get Analytics', value: 'getAnalytics', description: 'Get event analytics over time', action: 'Get event analytics' },
+					{ name: 'Get Many', value: 'getMany', description: 'List custom events', action: 'List custom events' },
+					{ name: 'Track Event', value: 'trackEvent', description: 'Record custom events for users', action: 'Track event' },
 				],
 				default: 'getMany',
 			},
@@ -340,6 +355,10 @@ export class Braze implements INodeType {
 					else if (operation === 'getSize') responseData = await segment.getSize.call(this, i);
 					else if (operation === 'exportUsers') responseData = await segment.exportUsers.call(this, i);
 					else if (operation === 'create') responseData = await segment.create.call(this, i);
+				} else if (resource === 'event') {
+					if (operation === 'trackEvent') responseData = await customEvent.trackEvent?.call(this, i) || [];
+					else if (operation === 'getMany') responseData = await customEvent.getMany.call(this, i);
+					else if (operation === 'getAnalytics') responseData = await customEvent.getAnalytics.call(this, i);
 				} else if (resource === 'contentBlock') {
 					if (operation === 'create') responseData = await contentBlock.create.call(this, i);
 					else if (operation === 'get') responseData = await contentBlock.get.call(this, i);
@@ -388,7 +407,7 @@ export class Braze implements INodeType {
 				}
 
 				returnData.push(...responseData);
-			} catch (error) {
+			} catch (error: any) {
 				if (this.continueOnFail()) {
 					returnData.push({ json: { error: (error as Error).message } });
 					continue;
